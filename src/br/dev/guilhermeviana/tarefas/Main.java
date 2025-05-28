@@ -7,28 +7,39 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.UUID;
 
+import br.dev.guilhermeviana.tarefas.dao.FuncionarioDAO;
 import br.dev.guilhermeviana.tarefas.model.Funcionario;
 import br.dev.guilhermeviana.tarefas.model.Status;
 import br.dev.guilhermeviana.tarefas.model.Tarefa;
+import br.dev.guilhermeviana.tarefas.utils.Utils;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Funcionario funcionario = new Funcionario("José", "Computador Master T.I games.");
-	
-		Tarefa tarefa = new Tarefa(funcionario);
-		tarefa.setNome("Lavar a Louça");
-		tarefa.setDescricao("Lavar a louça antes de eu chegar");
-		tarefa.setDataInicio(LocalDate.of(2025, 5, 21));
-		tarefa.setPrazo(1);
-		tarefa.getDataPrevistaEntrega();
-		tarefa.setStatus(Status.EM_ANDAMENTO);
+		Funcionario funcionario = new Funcionario("Ana braga", "RHA");
+		funcionario.setSetor("Tecnologia da informação.");
+		funcionario.setSalario(12000.98);
 		
+		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
+		dao.gravar();
 		
-		//testarLeituraEscritaArquivo();
-		
+//		System.out.println(funcionario.toString());
+//		
+//		Tarefa tarefa = new Tarefa(funcionario);
+//		tarefa.setNome("Lavar a Louça");
+//		tarefa.setDescricao("Lavar a louça antes de eu chegar");
+//		tarefa.setDataInicio(LocalDate.of(2025, 5, 21));
+//		tarefa.setPrazo(1);
+//		tarefa.getDataPrevistaEntrega();
+//		//tarefa.setStatus(Status.EM_ANDAMENTO);
+//		
+//		System.out.println(Utils.gerarUUID8());
+//		
+//		//testarLeituraEscritaArquivo();
+//		
 	}
 
 	private static void testarLeituraEscritaArquivo() {
