@@ -13,18 +13,26 @@ import br.dev.guilhermeviana.tarefas.dao.FuncionarioDAO;
 import br.dev.guilhermeviana.tarefas.model.Funcionario;
 import br.dev.guilhermeviana.tarefas.model.Status;
 import br.dev.guilhermeviana.tarefas.model.Tarefa;
+import br.dev.guilhermeviana.tarefas.ui.FuncionarioFrame;
+import br.dev.guilhermeviana.tarefas.ui.FuncionarioListaFrame;
 import br.dev.guilhermeviana.tarefas.utils.Utils;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Funcionario funcionario = new Funcionario("Ana braga", "RHA");
-		funcionario.setSetor("Tecnologia da informação.");
-		funcionario.setSalario(12000.98);
+		FuncionarioDAO dao = new FuncionarioDAO(null);
+		dao.getFuncionarios();
 		
-		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
-		dao.gravar();
+		new FuncionarioListaFrame();
+//		new FuncionarioFrame();
+		
+//		Funcionario funcionario = new Funcionario("Ana braga", "RHA");
+//		funcionario.setSetor("Tecnologia da informação.");
+//		funcionario.setSalario(12000.98);
+//		
+//		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
+//		dao.gravar();
 		
 //		System.out.println(funcionario.toString());
 //		
