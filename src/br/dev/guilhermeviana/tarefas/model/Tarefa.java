@@ -2,8 +2,12 @@ package br.dev.guilhermeviana.tarefas.model;
 
 import java.time.LocalDate;
 
-public class Tarefa {
+import br.dev.guilhermeviana.tarefas.utils.Utils;
 
+
+public class Tarefa {
+	
+	private String codigo;
 	private String nome;
 	private String descricao;
 	private Funcionario responsavel;
@@ -15,6 +19,15 @@ public class Tarefa {
 	public Tarefa(Funcionario responsavel) {
 		System.out.println("Tarefa para josé");
 		this.responsavel = responsavel;
+		this.codigo = Utils.gerarUUID8();
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getNome() {
