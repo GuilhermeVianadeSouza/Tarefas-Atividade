@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -31,14 +32,14 @@ public class FuncionarioListaFrame {
 	private JScrollPane scrollFuncionarios; //Container da Table
 	private String[] colunas = {"CÓDIGO", "NOME FUNCIONÁRIO", "CARGO"};
 	
-	public FuncionarioListaFrame() {
-		criarTela();
+	public FuncionarioListaFrame(JFrame avo) {
+		criarTela(avo);
 	}
 	
-	private void criarTela() {
-		JFrame telaFuncionarioLista = new JFrame("Lista de Funcionários");
+	private void criarTela(JFrame avo) {
+		JDialog telaFuncionarioLista = new JDialog(avo, "Lista de Funcionários", true);
 		telaFuncionarioLista.setSize(700, 500);
-		telaFuncionarioLista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		telaFuncionarioLista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		telaFuncionarioLista.setLayout(null);
 		telaFuncionarioLista.setLocationRelativeTo(null);
 		telaFuncionarioLista.setResizable(false);
@@ -63,7 +64,6 @@ public class FuncionarioListaFrame {
 		
 		btnNovo.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				new FuncionarioFrame(telaFuncionarioLista);
 				carregarDadosTabela();
@@ -72,6 +72,17 @@ public class FuncionarioListaFrame {
 		
 		btnSair = new JButton("Retornar");
 		btnSair.setBounds(300, 400, 200, 50);
+		
+		btnSair.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int resposta = JOptionPane.showConfirmDialog(telaFuncionarioLista, "Deseja retornar a tela inicial", "Atenção", JOptionPane.YES_NO_OPTION);
+				
+				if (resposta == 0) {
+					telaFuncionarioLista.dispose();
+				}
+			}
+		});
 		
 		carregarDadosTabela();
 		
