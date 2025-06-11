@@ -15,16 +15,18 @@ import br.dev.guilhermeviana.tarefas.model.Status;
 import br.dev.guilhermeviana.tarefas.model.Tarefa;
 import br.dev.guilhermeviana.tarefas.ui.FuncionarioFrame;
 import br.dev.guilhermeviana.tarefas.ui.FuncionarioListaFrame;
+import br.dev.guilhermeviana.tarefas.ui.GerenciadorProjetoFrame;
 import br.dev.guilhermeviana.tarefas.utils.Utils;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		FuncionarioDAO dao = new FuncionarioDAO(null);
-		dao.getFuncionarios();
+//		FuncionarioDAO dao = new FuncionarioDAO(null);
+//		dao.getFuncionarios();
 		
-		new FuncionarioListaFrame();
+		new GerenciadorProjetoFrame();
+//		new FuncionarioListaFrame();
 //		new FuncionarioFrame();
 		
 //		Funcionario funcionario = new Funcionario("Ana braga", "RHA");

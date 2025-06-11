@@ -10,6 +10,18 @@ public class Funcionario {
 	private String setor;
 	private double salario;
 	
+	public Funcionario(String nome) {
+		//System.out.printf("Criando um funcionário com denominacao nomial %s como %s. ", nome, cargo);
+		setNome(nome);
+		setMatricula(Utils.gerarUUID8());
+	}
+	
+	public Funcionario(String nome, String cargo) {
+		this.nome = nome;
+		this.cargo = cargo;
+		this.matricula = Utils.gerarUUID8();
+	}
+	
 	public String getMatricula() {
 		return matricula;
 	}
@@ -24,18 +36,6 @@ public class Funcionario {
 
 	public void setSalario(double salario) {
 		this.salario = salario;
-	}
-	
-	public Funcionario(String nome) {
-		System.out.printf("Criando um funcionário com denominacao nomial %s como %s. ", nome, cargo);
-		setNome(nome);
-		setMatricula(Utils.gerarUUID8());
-	}
-	
-	public Funcionario(String nome, String cargo) {
-		this.nome = nome;
-		this.cargo = cargo;
-		this.matricula = Utils.gerarUUID8();
 	}
 	
 	public String getNome() {
