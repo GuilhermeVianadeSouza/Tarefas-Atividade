@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ArquivoTarefasFactory {
+public class ArquivoTarefasFactory { //caminho e criação do caminho para 
 	
-	private String caminho = "/Users/25132756/projetoTarefas/tarefas.csv";
+	private String caminho = "C:\\Users\\25132756\\projetoTarefas\\tarefas.csv";
 	private FileWriter fw;
 	private BufferedWriter bw;
 	private FileReader fr;
@@ -29,4 +29,12 @@ public class ArquivoTarefasFactory {
 		
 		return br;
 	}
+	
+	public BufferedWriter getDbBW() throws IOException{
+		fw = new FileWriter(caminho, false);
+		bw = new BufferedWriter(fw);
+		
+		return bw;
+	}
+	
 }

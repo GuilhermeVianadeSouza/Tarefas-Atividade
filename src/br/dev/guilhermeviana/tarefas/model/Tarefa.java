@@ -1,6 +1,7 @@
 package br.dev.guilhermeviana.tarefas.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import br.dev.guilhermeviana.tarefas.utils.Utils;
 
@@ -15,11 +16,11 @@ public class Tarefa {
 	private int prazo;
 	private LocalDate dataEntrega;
 	private Status status;
+	private String dataString;
 	
-	public Tarefa(Funcionario responsavel) {
-		System.out.println("Tarefa para josé");
-		this.responsavel = responsavel;
-		this.codigo = Utils.gerarUUID8();
+	public Tarefa(Funcionario funcionario) { //Construtor que recebe um objeto Funcionario e atribui ao responsável (responsavel) da tarefa. Também gera um código único para a tarefa.
+		setCodigo(Utils.gerarUUID8());
+		setResponsavel(funcionario);
 	}
 
 	public String getCodigo() {
@@ -58,8 +59,9 @@ public class Tarefa {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setDataInicio(String dataTexto) {//Aqui pegamos a variavel String e convertemos para uma Local date. Essa Local date será utilizada depois novamente para ser transformada em uma String para ser visualizada depois em uma tela gráfica
+		this.dataInicio = LocalDate.parse(dataTexto, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		dataString = dataInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 
 	public int getPrazo() {
@@ -71,7 +73,8 @@ public class Tarefa {
 	}
 
 	public LocalDate getDataPrevistaEntrega() {
-		return dataInicio.plusDays(prazo);
+		LocalDate dataPrazo = dataInicio.plusDays(prazo); //Criamos uma variavel local date dataprazo e utilizando do método, calculamos a data inicio utilizando o argumento prazo e com pluysday não excedemos os valores de dia e mês e ano padrão.
+		return dataPrazo;
 	}
 
 	public LocalDate getDataEntrega() {
@@ -83,13 +86,25 @@ public class Tarefa {
 	}
 
 	public Status getStatus() {
-		
-		LocalDate hoje = LocalDate.now();
-		
-		
-		
+		if (status == null) {
+			calcularStatusAtual();
+		}
 		return status;
 	}
 	
+	private void calcularStatusAtual() {
+		LocalDate dataPrazo = getDataPrevistaEntrega();
+		LocalDate hoje = LocalDate.now();
+		if (hoje.isBefore(dataInicio)) {
+			setStatus(Status.NAO_INICIADO);
+		}
+		if (hoje.isBefore(dataPrazo)) {
+			set
+		}
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 }
