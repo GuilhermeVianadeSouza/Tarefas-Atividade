@@ -86,7 +86,7 @@ public class Tarefa {
 	}
 
 	public Status getStatus() {
-		if (status == null) {
+		if (status == null || !status.equals(Status.CONCLUIDO)) {
 			calcularStatusAtual();
 		}
 		return status;
@@ -98,13 +98,28 @@ public class Tarefa {
 		if (hoje.isBefore(dataInicio)) {
 			setStatus(Status.NAO_INICIADO);
 		}
-		if (hoje.isBefore(dataPrazo)) {
-			set
+		else if (hoje.isBefore(dataPrazo)) {
+			setStatus(Status.EM_ANDAMENTO);
+		} else if (hoje.isAfter(dataPrazo)) {
+			setStatus(Status.EM_ATRASO);
 		}
 	}
 	
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-
+	
+	public void setStatus(String status) {
+		if(status.equals("CONCLUIDO")) {
+			this.status = Status.CONCLUIDO;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		String matricula = responsavel.getMatricula();
+		String responsavelNome = responsavel.getNome();
+		return
+				codigo+","+nome+","+descricao+","+responsavel+","+dataInicio+","+prazo+","+dataEntrega+","+status+".";
+	}
 }
