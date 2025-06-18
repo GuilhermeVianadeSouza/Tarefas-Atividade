@@ -22,7 +22,7 @@ public class GerenciadorProjetoFrame {
 	
 	private void criarTela() {
 		JFrame telaGerenciador = new JFrame ("Gerenciador Tarefas");
-		telaGerenciador.setSize(250, 300);
+		telaGerenciador.setSize(280, 350);
 		telaGerenciador.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		telaGerenciador.setLayout(null);
 		telaGerenciador.setLocationRelativeTo(null);
@@ -49,6 +49,14 @@ public class GerenciadorProjetoFrame {
 		
 		bntTarefas = new JButton("Tarefas");
 		bntTarefas.setBounds(140, 150, 100, 100);
+		
+		bntTarefas.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				new TarefasListaFrame(telaGerenciador);
+				
+			}
+		});
 		
 		visual.add(labelTitulo);
 		visual.add(bntFuncionario);

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.dev.guilhermeviana.tarefas.factory.ArquivoTarefasFactory;
+import br.dev.guilhermeviana.tarefas.model.Funcionario;
+import br.dev.guilhermeviana.tarefas.model.Status;
 import br.dev.guilhermeviana.tarefas.model.Tarefa;
 
 public class TarefasDAO {
@@ -14,58 +16,62 @@ public class TarefasDAO {
 	private Tarefa tarefas;
 	private ArquivoTarefasFactory aff = new ArquivoTarefasFactory();
 
-	public TarefasDAO(Tarefa tarefas) {
-		this.tarefas = tarefas;
+
+	    public TarefasDAO(Tarefa tarefas) {
+	        this.tarefas = tarefas;
+	    }
+
+	    public boolean gravar() {
+	        try {
+	            BufferedWriter bw = aff.getBw();
+	            // Exemplo simples de formatação para gravação
+	            bw.write(tarefas.getCodigo() + "," +
+	                     tarefas.getNome() + "," +
+	                     tarefas.getDescricao() + "," +
+	                     tarefas.getResponsavel().getMatricula() + "," +
+	                     tarefas.getDataInicio() + "," +
+	                     tarefas.getPrazo() + "," +
+	                     tarefas.getDataEntrega() + "," +
+	                     tarefas.getStatus().name());
+
+	            bw.newLine();
+	            bw.flush();
+	            return true;
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+
+	    public List<Tarefa> getTarefas() {
+	        List<Tarefa> tarefas = new ArrayList<>();
+
+	        try (BufferedReader br = aff.getBr()) {
+	            String linha;
+
+	            while ((linha = br.readLine()) != null) {
+	                String[] partes = linha.split(",");
+
+	                Tarefa tarefa = new Tarefa(null);
+	                tarefa.setCodigo(partes[0]);
+	                tarefa.setNome(partes[1]);
+	                tarefa.setDescricao(partes[2]);
+
+	                Funcionario responsavel = new Funcionario(null);
+	                responsavel.setMatricula(partes[3]);
+	                tarefa.setResponsavel(responsavel);
+
+	                tarefa.setDataInicio(partes[4]);
+	                tarefa.setPrazo(Integer.parseInt(partes[5]));
+	                tarefa.setDataEntrega(partes[6]);
+	                tarefa.setStatus(Status.valueOf(partes[7]));
+
+	                tarefas.add(tarefa);
+	            }
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            }
+	        return tarefas;
+	    }
 	}
-
-	public boolean gravar() {
-		try {
-			BufferedWriter bw = aff.getBw();
-			bw.write(tarefas.toString());
-			bw.flush();
-			return true;
-		} catch (Exception e) {
-			System.out.println();
-			return false;
-		}
-
-	}
-	
-	public List<Tarefa> getTarefas() {
-		
-		List<Tarefa> tarefas = new ArrayList<Tarefa>();
-		
-		try {
-			BufferedReader br = aff.getBr();
-			
-			String linha = "";
-			
-			while (linha != null) {
-				linha = br.readLine();
-				if (linha != null ) {
-					String[] tarefasVetor = linha.split(",");
-					Tarefa tarefa = new Tarefa(null);
-					tarefa.setCodigo(tarefasVetor[0]);
-					tarefa.setNome(tarefasVetor[1]);
-					tarefa.setDescricao(tarefasVetor[2]);
-					tarefa.setResponsavel(tarefasVetor[3]);
-					tarefa.setDataInicio(tarefasVetor[4]);
-					tarefa.setPrazo(tarefasVetor[5]);
-					tarefa.setDataEntrega(tarefasVetor[6]);
-					tarefa.setStatu
-					tarefa.add(funcionario);
-				}
-			}
-			
-			return funcionarios;
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
-
-}
-	
-

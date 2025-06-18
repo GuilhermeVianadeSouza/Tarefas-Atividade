@@ -81,8 +81,8 @@ public class Tarefa {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(LocalDate dataEntrega) {
-		this.dataEntrega = dataEntrega;
+	public void setDataEntrega(String dataTexto) {
+	    this.dataEntrega = LocalDate.parse(dataTexto, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 
 	public Status getStatus() {
