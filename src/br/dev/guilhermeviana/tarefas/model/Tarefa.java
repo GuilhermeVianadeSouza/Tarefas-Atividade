@@ -17,6 +17,7 @@ public class Tarefa {
 	private LocalDate dataEntrega;
 	private Status status;
 	private String dataString;
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	public Tarefa(Funcionario funcionario) { //Construtor que recebe um objeto Funcionario e atribui ao responsável (responsavel) da tarefa. Também gera um código único para a tarefa.
 		setCodigo(Utils.gerarUUID8());
@@ -55,13 +56,13 @@ public class Tarefa {
 		this.responsavel = responsavel;
 	}
 
-	public LocalDate getDataInicio() {
-		return dataInicio;
+	public String getDataInicio() {
+		return dataInicio.format(formatter);
 	}
 
 	public void setDataInicio(String dataTexto) {//Aqui pegamos a variavel String e convertemos para uma Local date. Essa Local date será utilizada depois novamente para ser transformada em uma String para ser visualizada depois em uma tela gráfica
 		this.dataInicio = LocalDate.parse(dataTexto, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		dataString = dataInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		dataString = dataInicio.format(formatter);
 	}
 
 	public int getPrazo() {
@@ -72,18 +73,32 @@ public class Tarefa {
 		this.prazo = prazo;
 	}
 
-	public LocalDate getDataPrevistaEntrega() {
+	public LocalDate getDataPrevista() {
+		
 		LocalDate dataPrazo = dataInicio.plusDays(prazo); //Criamos uma variavel local date dataprazo e utilizando do método, calculamos a data inicio utilizando o argumento prazo e com pluysday não excedemos os valores de dia e mês e ano padrão.
 		return dataPrazo;
+	}
+	
+	public String getDataPrevistaEntregaTxt() {
+		return getDataPrevista().format(formatter);
 	}
 
 	public LocalDate getDataEntrega() {
 		return dataEntrega;
 	}
+	
+	public String setDataPrevistaEntregaTxt(String dataPrazo) {
+		return getDataPrevista().format(formatter);	}
 
-	public void setDataEntrega(String dataTexto) {
-	    this.dataEntrega = LocalDate.parse(dataTexto, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	public void setDataEntrega(String dataEntrega) {
+	    if (dataEntrega != null && !dataEntrega.equalsIgnoreCase("null") && !dataEntrega.trim().isEmpty()) {
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	        this.dataEntrega = LocalDate.parse(dataEntrega, formatter);
+	    } else {
+	        this.dataEntrega = null;
+	    }
 	}
+
 
 	public Status getStatus() {
 		if (status == null || !status.equals(Status.CONCLUIDO)) {
@@ -93,7 +108,7 @@ public class Tarefa {
 	}
 	
 	private void calcularStatusAtual() {
-		LocalDate dataPrazo = getDataPrevistaEntrega();
+		LocalDate dataPrazo = getDataPrevista();
 		LocalDate hoje = LocalDate.now();
 		if (hoje.isBefore(dataInicio)) {
 			setStatus(Status.NAO_INICIADO);

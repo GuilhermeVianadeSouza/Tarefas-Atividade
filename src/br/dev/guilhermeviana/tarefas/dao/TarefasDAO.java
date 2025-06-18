@@ -31,8 +31,8 @@ public class TarefasDAO {
 	                     tarefas.getResponsavel().getMatricula() + "," +
 	                     tarefas.getDataInicio() + "," +
 	                     tarefas.getPrazo() + "," +
-	                     tarefas.getDataEntrega() + "," +
-	                     tarefas.getStatus().name());
+	                     tarefas.getDataPrevista() + "," +
+	                     tarefas.getStatus().name() + "\n");
 
 	            bw.newLine();
 	            bw.flush();
@@ -50,20 +50,24 @@ public class TarefasDAO {
 	            String linha;
 
 	            while ((linha = br.readLine()) != null) {
+	            	if (linha.trim().isEmpty()) {
+	                    continue; // Ignora linhas vazias
+	                }
 	                String[] partes = linha.split(",");
 
 	                Tarefa tarefa = new Tarefa(null);
 	                tarefa.setCodigo(partes[0]);
 	                tarefa.setNome(partes[1]);
 	                tarefa.setDescricao(partes[2]);
-
-	                Funcionario responsavel = new Funcionario(null);
-	                responsavel.setMatricula(partes[3]);
-	                tarefa.setResponsavel(responsavel);
+	                
+	                FuncionarioDAO funcionarioDao = new FuncionarioDAO(null);
+	                
+	                
+	                tarefa.setResponsavel(funcionarioDao.getFuncionario(partes[3]));
 
 	                tarefa.setDataInicio(partes[4]);
 	                tarefa.setPrazo(Integer.parseInt(partes[5]));
-	                tarefa.setDataEntrega(partes[6]);
+	                tarefa.setDataPrevistaEntregaTxt(partes[6]);
 	                tarefa.setStatus(Status.valueOf(partes[7]));
 
 	                tarefas.add(tarefa);
@@ -74,4 +78,5 @@ public class TarefasDAO {
 	            }
 	        return tarefas;
 	    }
+	    
 	}

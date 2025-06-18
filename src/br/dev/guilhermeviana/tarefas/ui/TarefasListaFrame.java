@@ -103,7 +103,7 @@ public class TarefasListaFrame {
             dados[i][1] = t.getNome();
             dados[i][2] = t.getResponsavel().getNome();
             dados[i][3] = t.getDataInicio();
-            dados[i][4] = t.getDataEntrega();
+            dados[i][4] = t.getDataPrevistaEntregaTxt();
             dados[i][5] = t.getStatus();
             i++;
         }
