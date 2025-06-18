@@ -13,9 +13,10 @@ Projeto em JAVA, utilizando de todo o conhecimento das ultimas aulas e pesquisa 
 ![image](https://github.com/user-attachments/assets/b601ead3-c2af-48c6-aff6-1563419e5895)
 
 ---
-![image.png](attachment:99e8c50b-f4b3-4fca-ad56-5bcd2219f69c:image.png)
+
 ---
-![image.png](attachment:f80c4b86-6c78-459e-b59e-403918a747de:image.png)
+<img width="502" alt="Captura de Tela 2025-06-18 às 10 22 15" src="https://github.com/user-attachments/assets/005ab455-e7b9-4b81-8baa-7f9d1d093d91" />
+
 ---
 
 ---
